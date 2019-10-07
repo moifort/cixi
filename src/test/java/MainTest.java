@@ -1,4 +1,5 @@
 
+import infra.Main;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
