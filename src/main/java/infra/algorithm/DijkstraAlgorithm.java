@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Use of Dijkstra algorithm: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
  * <p>
- * this algorithm cannot manage tow road starting and ending to the same cities
+ * This algorithm cannot manage two roads starting and ending with the same cities and will throw a RuntimeException
  */
 
 public class DijkstraAlgorithm implements ShortestTrackAlgorithm {

@@ -1,21 +1,23 @@
 package domain;
 
-import infra.algorithm.DijkstraAlgorithm;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class MapTest {
+    @Mock
+    ShortestTrackAlgorithm shortestTrackAlgorithm;
 
     @Test
     public void shortestTrack() {
         // Given
-        ShortestTrackAlgorithm shortestTrackAlgorithm = new DijkstraAlgorithm();
-
         City sillingy = new City("Sillingy");
         City annecy = new City("Annecy");
         City epagny = new City("Epagny");
@@ -29,8 +31,19 @@ public class MapTest {
         Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11, Metric.minute));
         Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
         Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
+        List<Road> roads = List.of(
+                sillingyToEpany,
+                epagnyToMetzTessy,
+                metzTessyToAnnecy,
+                metzTessyToSeynod,
+                sillingyToSeynod,
+                sillingyToAnnecy,
+                annecyToSeynod);
 
-        Map map = new Map(Arrays.asList(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy, metzTessyToSeynod, sillingyToSeynod, sillingyToAnnecy, annecyToSeynod), shortestTrackAlgorithm);
+        when(shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads))
+                .thenReturn(List.of(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy));
+
+        Map map = new Map(roads, shortestTrackAlgorithm);
 
         // When
         List<Road> shortestTrack = map.shortestTrack(sillingy, annecy);
