@@ -21,6 +21,35 @@ To build the project execute in the root directory:
 ./mvnw clean install
 ```
 
+To run the project:
+
+```bash
+java -jar target/app-1.0.0.jar
+```
+
+Output:
+
+```bash
+   _____ _______   _______ 
+  / ____|_   _\ \ / |_   _|
+ | |      | |  \ V /  | |  
+ | |      | |   > <   | |  
+ | |____ _| |_ / . \ _| |_ 
+  \_____|_____/_/ \_|_____|
+                           
+                           
+
+Shortest track from Sillingy to Annecy:
+
+[Road{from=Sillingy, to=Epagny, length=1 minute}, Road{from=Epagny, to=Metz-Tessy, length=3 minute}, Road{from=Metz-Tessy, to=Annecy, length=12 minute}]
+```
+
+
+## Architecture
+
+Hexagonal Architecture,  more information [here](https://blog.octo.com/architecture-hexagonale-trois-principes-et-un-exemple-dimplementation/)
+
 ## External Library
 
 - `junit` & `assertJ` for testing, because testing is life ;)
+- [`hipster`](https://github.com/citiususc/hipster) for shortest path algorithm using **Dijkstra's algorithm**. Very easy to use, perfectly adapted to my need, fully tested and 237 stars on Github.
