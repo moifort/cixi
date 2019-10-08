@@ -1,7 +1,6 @@
 package infra.algorithm;
 
 import domain.*;
-import es.usc.citius.hipster.algorithm.Algorithm;
 import es.usc.citius.hipster.algorithm.Hipster;
 import es.usc.citius.hipster.graph.GraphBuilder;
 import es.usc.citius.hipster.graph.GraphSearchProblem;
@@ -40,8 +39,8 @@ public class DijkstraAlgorithmTest {
 
 
         // When
-        System.out.println(Hipster.createDijkstra(p).search("F"));
-        System.out.println(Algorithm.recoverActionPath(Hipster.createDijkstra(p).search("F").getGoalNode()));
+        //System.out.println(Hipster.createDijkstra(p).search("F"));
+        //System.out.println(Algorithm.recoverActionPath(Hipster.createDijkstra(p).search("F").getGoalNode()));
 
         List<String> shortestPath = (List<String>) Hipster.createDijkstra(p).search("F").getOptimalPaths().get(0);
 
