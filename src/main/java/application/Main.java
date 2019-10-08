@@ -1,19 +1,24 @@
-package domain;
+package application;
 
+import domain.*;
 import infra.algorithm.DijkstraAlgorithm;
-import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+public class Main {
+    public static void main(String[] args) throws Exception {
+        System.out.println("\n" +
+                "   _____ _______   _______ \n" +
+                "  / ____|_   _\\ \\ / |_   _|\n" +
+                " | |      | |  \\ V /  | |  \n" +
+                " | |      | |   > <   | |  \n" +
+                " | |____ _| |_ / . \\ _| |_ \n" +
+                "  \\_____|_____/_/ \\_|_____|\n" +
+                "                           \n" +
+                "                           \n");
 
-
-public class MapTest {
-
-    @Test
-    public void shortestTrack() {
-        // Given
+        // Setup
         ShortestTrackAlgorithm shortestTrackAlgorithm = new DijkstraAlgorithm();
 
         City sillingy = new City("Sillingy");
@@ -30,12 +35,18 @@ public class MapTest {
         Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
         Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
 
-        Map map = new Map(Arrays.asList(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy, metzTessyToSeynod, sillingyToSeynod, sillingyToAnnecy, annecyToSeynod), shortestTrackAlgorithm);
+        Map map = new Map(Arrays.asList(sillingyToEpany,
+                epagnyToMetzTessy,
+                metzTessyToAnnecy,
+                metzTessyToSeynod,
+                sillingyToSeynod,
+                sillingyToAnnecy,
+                annecyToSeynod),
+                shortestTrackAlgorithm);
 
-        // When
+        // Run
         List<Road> shortestTrack = map.shortestTrack(sillingy, annecy);
-
-        // Then
-        assertThat(shortestTrack).containsExactly(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy);
+        System.out.println("Shortest track from Sillingy to Annecy:\n\n" + shortestTrack + "\n\n\n\n");
     }
+
 }

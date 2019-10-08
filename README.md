@@ -21,6 +21,11 @@ To build the project execute in the root directory:
 ./mvnw clean install
 ```
 
+## Architecture
+
+Hexagonal Architecture,  more information [here]()
+
 ## External Library
 
 - `junit` & `assertJ` for testing, because testing is life ;)
+- [`hipster`](https://github.com/citiususc/hipster) for shortest path algorithm using **Dijkstra's algorithm**. Very easy to use, perfectly adapted to my need, fully tested and 237 stars on Github.
