@@ -1,21 +1,23 @@
 package application;
 
-import application.print.*;
+import application.clock.Clock;
+import application.clock.SystemClock;
+import application.print.Printable;
+import application.print.Printer;
+import application.print.SystemOutPrinter;
 import domain.*;
 import infra.algorithm.DijkstraAlgorithm;
 
 import java.util.List;
 
 public class SimulatorApplication {
-    private Printable print;
     private Printer printer;
 
     public SimulatorApplication() {
         this(new SystemOutPrinter(), new SystemClock());
     }
 
-    public SimulatorApplication(Printable print, Clockable clock) {
-        this.print = print;
+    public SimulatorApplication(Printable print, Clock clock) {
         this.printer = new Printer(print, clock);
     }
 

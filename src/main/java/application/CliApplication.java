@@ -1,7 +1,7 @@
 package application;
 
+import application.clock.SystemClock;
 import application.print.Printer;
-import application.print.SystemClock;
 import application.print.TerminalPrinter;
 import domain.*;
 import infra.algorithm.DijkstraAlgorithm;

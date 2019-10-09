@@ -1,6 +1,6 @@
 package application;
 
-import application.print.Clockable;
+import application.clock.Clock;
 import application.print.Printable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import org.junit.Test;
 public class SimulatorApplicationTest {
 
     @Test
-    public void run() {
+    public void ShouldValidTheConsoleOutput() {
         // Given
         TestPrinter printer = new TestPrinter();
         SimulatorApplication app = new SimulatorApplication(printer, new TestClock());
@@ -79,7 +79,7 @@ public class SimulatorApplicationTest {
         }
     }
 
-    class TestClock implements Clockable {
+    class TestClock implements Clock {
 
         @Override
         public String nowHHmm(int minutesAdded) {

@@ -1,5 +1,6 @@
 package application.print;
 
+import application.clock.Clock;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.asciithemes.TA_GridThemes;
@@ -13,11 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Printer {
-    private Clockable clock;
+    private Clock clock;
     private Printable printer;
     private int width = 60;
 
-    public Printer(Printable printer, Clockable clock) {
+    public Printer(Printable printer, Clock clock) {
         this.clock = clock;
         this.printer = printer;
     }
