@@ -9,16 +9,16 @@ import domain.City;
 import domain.Length;
 import domain.Road;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Printer {
+    private Clockable clock;
     private Printable printer;
     private int width = 60;
 
-    public Printer(Printable printer) {
+    public Printer(Printable printer, Clockable clock) {
+        this.clock = clock;
         this.printer = printer;
     }
 
@@ -50,9 +50,7 @@ public class Printer {
                 .map(Road::length)
                 .mapToInt(Length::value)
                 .sum();
-        Calendar arrivedTime = Calendar.getInstance();
-        arrivedTime.add(Calendar.MINUTE, durationInMinute);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
 
         AsciiTable at = new AsciiTable();
         if (route.isEmpty()) {
@@ -65,7 +63,7 @@ public class Printer {
             at.addRule();
             at.addRow(null, from.name() + " ==> " + to.name()).setTextAlignment(TextAlignment.CENTER);
             at.addRule();
-            at.addRow("Arrived: " + formatter.format(arrivedTime.getTime()), "Duration: " + durationInMinute + " min").setTextAlignment(TextAlignment.CENTER);
+            at.addRow("Arrived: " + clock.nowHHmm(durationInMinute), "Duration: " + durationInMinute + " min").setTextAlignment(TextAlignment.CENTER);
             at.addRule();
             int index = 1;
             for (Road road : route) {

@@ -1,4 +1,5 @@
 # CIXI Kata
+Kotlin Version in `kotlin` branch
 
 ## Challenge
 

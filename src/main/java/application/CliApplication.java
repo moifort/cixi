@@ -1,6 +1,7 @@
 package application;
 
 import application.print.Printer;
+import application.print.SystemClock;
 import application.print.TerminalPrinter;
 import domain.*;
 import infra.algorithm.DijkstraAlgorithm;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class CliApplication {
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal terminal = textIO.getTextTerminal();
-    private Printer printer = new Printer(new TerminalPrinter(terminal));
+    private Printer printer = new Printer(new TerminalPrinter(terminal), new SystemClock());
 
     public void run() {
         List<City> cities = createCities(textIO, printer);

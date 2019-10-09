@@ -1,14 +1,23 @@
 package application;
 
-import application.print.Printer;
-import application.print.SystemOutPrinter;
+import application.print.*;
 import domain.*;
 import infra.algorithm.DijkstraAlgorithm;
 
 import java.util.List;
 
 public class SimulatorApplication {
-    private Printer printer = new Printer(new SystemOutPrinter());
+    private Printable print;
+    private Printer printer;
+
+    public SimulatorApplication() {
+        this(new SystemOutPrinter(), new SystemClock());
+    }
+
+    public SimulatorApplication(Printable print, Clockable clock) {
+        this.print = print;
+        this.printer = new Printer(print, clock);
+    }
 
     public void run() {
         printer.title("City");
