@@ -100,6 +100,6 @@ Hexagonal Architecture,  more information [here](https://blog.octo.com/architect
 
 ## External Library
 
-- `junit` & `assertJ` for testing, because testing is life ;)
+- `junit` & `assertJ` & `mockito` for testing, because testing is life ;)
 - [`hipster`](https://github.com/citiususc/hipster) for shortest path algorithm using **Dijkstra's algorithm**. Easy to use, perfectly adapted to my need, fully tested and 237 stars on Github.
 - `text-io` & `asciitable` for display. Fully tested and easy to use.
