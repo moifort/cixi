@@ -13,7 +13,7 @@ When launching the program, the user gets a window interface in which he can cre
 
 * Java 11 
 
-## Build & Run
+## Build 
 
 To build the project execute in the root directory: 
 
@@ -21,7 +21,7 @@ To build the project execute in the root directory:
 ./mvnw clean install
 ```
 
-To run the project:
+## Simulator
 
 ```bash
 java -jar target/app-1.0.0.jar
@@ -30,20 +30,69 @@ java -jar target/app-1.0.0.jar
 Output:
 
 ```bash
-   _____ _______   _______ 
-  / ____|_   _\ \ / |_   _|
- | |      | |  \ V /  | |  
- | |      | |   > <   | |  
- | |____ _| |_ / . \ _| |_ 
-  \_____|_____/_/ \_|_____|
-                           
-                           
-
-Shortest track from Sillingy to Annecy:
-
-[Road{from=Sillingy, to=Epagny, length=1 minute}, Road{from=Epagny, to=Metz-Tessy, length=3 minute}, Road{from=Metz-Tessy, to=Annecy, length=12 minute}]
+  ╔══════════════════════════════════════════════════════════╗
+  ║                           City                           ║
+  ╚══════════════════════════════════════════════════════════╝
+                                                   Sillingy ✓ 
+                                                     Annecy ✓ 
+                                                     Epagny ✓ 
+                                                 Metz-Tessy ✓ 
+                                                     Seynod ✓ 
+  
+  
+  ╔══════════════════════════════════════════════════════════╗
+  ║                           Road                           ║
+  ╚══════════════════════════════════════════════════════════╝
+                                 Sillingy ══[1min]=> Epagny ✓ 
+                               Epagny ══[3min]=> Metz-Tessy ✓ 
+                              Metz-Tessy ══[12min]=> Annecy ✓ 
+                               Metz-Tessy ══[4min]=> Seynod ✓ 
+                                Sillingy ══[11min]=> Seynod ✓ 
+                                Sillingy ══[19min]=> Annecy ✓ 
+                                   Annecy ══[9min]=> Seynod ✓ 
+  
+  
+  ╔══════════════════════════════════════════════════════════╗
+  ║                           Map                            ║
+  ╚══════════════════════════════════════════════════════════╝
+  ┌──────────────────┬───────────────────────────────────────┐
+  │      Cities      │                 Roads                 │
+  ├──────────────────┼───────────────────────────────────────┤
+  │Sillingy          │Sillingy ══[1min]=> Epagny             │
+  │Annecy            │Epagny ══[3min]=> Metz-Tessy           │
+  │Epagny            │Metz-Tessy ══[12min]=> Annecy          │
+  │Metz-Tessy        │Metz-Tessy ══[4min]=> Seynod           │
+  │Seynod            │Sillingy ══[11min]=> Seynod            │
+  │                  │Sillingy ══[19min]=> Annecy            │
+  │                  │Annecy ══[9min]=> Seynod               │
+  └──────────────────┴───────────────────────────────────────┘
+  
+  
+  ╔══════════════════════════════════════════════════════════╗
+  ║                          Route                           ║
+  ╚══════════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════════╗
+  ║                   Sillingy ==> Annecy                    ║
+  ╠═════════════════════════════╦════════════════════════════╣
+  ║       Arrived: 14:35        ║      Duration: 16 min      ║
+  ╠═════════════════════════════╩════════════════════════════╣
+  ║1. Sillingy ══[1min]=> Epagny                             ║
+  ║2. Epagny ══[3min]=> Metz-Tessy                           ║
+  ║3. Metz-Tessy ══[12min]=> Annecy                          ║
+  ╚══════════════════════════════════════════════════════════╝
 ```
 
+## Command-Line Interface 
+
+```bash
+java -jar target/app-1.0.0.jar cli
+```
+
+![add city](add-city.gif)
+
+![add road](add-road.gif)
+
+![route](route.gif)
 
 ## Architecture
 
@@ -52,4 +101,5 @@ Hexagonal Architecture,  more information [here](https://blog.octo.com/architect
 ## External Library
 
 - `junit` & `assertJ` for testing, because testing is life ;)
-- [`hipster`](https://github.com/citiususc/hipster) for shortest path algorithm using **Dijkstra's algorithm**. Very easy to use, perfectly adapted to my need, fully tested and 237 stars on Github.
+- [`hipster`](https://github.com/citiususc/hipster) for shortest path algorithm using **Dijkstra's algorithm**. Easy to use, perfectly adapted to my need, fully tested and 237 stars on Github.
+- `text-io` & `asciitable` for display. Fully tested and easy to use.
