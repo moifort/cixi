@@ -1,6 +1,8 @@
-# cixi
+# CIXI Kata
 
 ## Challenge
+
+![map](map.png)
 
 We ask you to develop a window program which builds the map according to user input and then generates the shortest track between two existing cities selected by the user. The map is made of two types of objects :
 - Cities​ : A city is defined by its unique name
