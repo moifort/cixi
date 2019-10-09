@@ -1,17 +1,9 @@
-package domain;
+package domain
 
-import java.util.List;
+class Map(private val roads: List<Road>,
+          private val shortestTrackAlgorithm: ShortestTrackAlgorithm) {
 
-public class Map {
-    private List<Road> roads;
-    private ShortestTrackAlgorithm shortestTrackAlgorithm;
-
-    public Map(List<Road> roads, ShortestTrackAlgorithm shortestTrackAlgorithm) {
-        this.roads = roads;
-        this.shortestTrackAlgorithm = shortestTrackAlgorithm;
-    }
-
-    public List<Road> shortestTrack(City from, City to) {
-        return shortestTrackAlgorithm.shortestTrack(from, to, roads);
+    fun shortestTrack(from: City, to: City): List<Road> {
+        return shortestTrackAlgorithm.shortestTrack(from, to, roads)
     }
 }

@@ -1,98 +1,92 @@
-package infra.algorithm;
+package infra.algorithm
 
-import domain.*;
-import es.usc.citius.hipster.algorithm.Hipster;
-import es.usc.citius.hipster.graph.GraphBuilder;
-import es.usc.citius.hipster.graph.GraphSearchProblem;
-import es.usc.citius.hipster.graph.HipsterDirectedGraph;
-import es.usc.citius.hipster.model.problem.SearchProblem;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import domain.*
+import es.usc.citius.hipster.algorithm.Hipster
+import es.usc.citius.hipster.graph.GraphBuilder
+import es.usc.citius.hipster.graph.GraphSearchProblem
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+import java.util.*
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class DijkstraAlgorithmTest {
-    private ShortestTrackAlgorithm shortestTrackAlgorithm = new DijkstraAlgorithm();
+class DijkstraAlgorithmTest {
+    private val shortestTrackAlgorithm = DijkstraAlgorithm()
 
     @Test
-    public void librarySample() {
+    fun librarySample() {
         // Given
-        HipsterDirectedGraph<String, Double> graph = GraphBuilder.<String, Double>create()
-                .connect("A").to("B").withEdge(4d)
-                .connect("A").to("C").withEdge(2d)
-                .connect("B").to("C").withEdge(5d)
-                .connect("B").to("D").withEdge(10d)
-                .connect("C").to("E").withEdge(3d)
-                .connect("D").to("F").withEdge(11d)
-                .connect("E").to("D").withEdge(4d)
-                .createDirectedGraph();
+        val graph = GraphBuilder.create<String, Double>()
+                .connect("A").to("B").withEdge(4.0)
+                .connect("A").to("C").withEdge(2.0)
+                .connect("B").to("C").withEdge(5.0)
+                .connect("B").to("D").withEdge(10.0)
+                .connect("C").to("E").withEdge(3.0)
+                .connect("D").to("F").withEdge(11.0)
+                .connect("E").to("D").withEdge(4.0)
+                .createDirectedGraph()
 
 
-        SearchProblem p = GraphSearchProblem
+        val p = GraphSearchProblem
                 .startingFrom("A")
-                .in(graph)
+                .`in`(graph)
                 .takeCostsFromEdges()
-                .build();
+                .build()
 
 
         // When
         //System.out.println(Hipster.createDijkstra(p).search("F"));
         //System.out.println(Algorithm.recoverActionPath(Hipster.createDijkstra(p).search("F").getGoalNode()));
 
-        List<String> shortestPath = (List<String>) Hipster.createDijkstra(p).search("F").getOptimalPaths().get(0);
+        val shortestPath = Hipster.createDijkstra(p).search("F").optimalPaths[0] as List<String>
 
         // Then
-        assertThat(shortestPath).containsExactly("A", "C", "E", "D", "F");
+        assertThat(shortestPath).containsExactly("A", "C", "E", "D", "F")
     }
 
     @Test
-    public void shouldDisplayTheShortestPath() {
+    fun shouldDisplayTheShortestPath() {
         // Given
-        City sillingy = new City("Sillingy");
-        City annecy = new City("Annecy");
-        City epagny = new City("Epagny");
-        City metzTessy = new City("Metz-Tessy");
-        City seynod = new City("Seynod");
+        val sillingy = City("Sillingy")
+        val annecy = City("Annecy")
+        val epagny = City("Epagny")
+        val metzTessy = City("Metz-Tessy")
+        val seynod = City("Seynod")
 
-        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1, Metric.minute));
-        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3, Metric.minute));
-        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12, Metric.minute));
-        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4, Metric.minute));
-        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11, Metric.minute));
-        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
-        Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
+        val sillingyToEpany = Road(sillingy, epagny, Length(1, Metric.minute))
+        val epagnyToMetzTessy = Road(epagny, metzTessy, Length(3, Metric.minute))
+        val metzTessyToAnnecy = Road(metzTessy, annecy, Length(12, Metric.minute))
+        val metzTessyToSeynod = Road(metzTessy, seynod, Length(4, Metric.minute))
+        val sillingyToSeynod = Road(sillingy, seynod, Length(11, Metric.minute))
+        val sillingyToAnnecy = Road(sillingy, annecy, Length(19, Metric.minute))
+        val annecyToSeynod = Road(annecy, seynod, Length(9, Metric.minute))
 
-        List<Road> roads = Arrays.asList(
+        val roads = listOf(
                 sillingyToEpany,
                 epagnyToMetzTessy,
                 metzTessyToAnnecy,
                 metzTessyToSeynod,
                 sillingyToSeynod,
                 sillingyToAnnecy,
-                annecyToSeynod);
+                annecyToSeynod)
 
         // When
-        List<Road> shortestTrack = shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads);
+        val shortestTrack = shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads)
 
         // Then
-        Assertions.assertThat(shortestTrack).containsExactly(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy);
+        assertThat(shortestTrack).containsExactly(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy)
     }
 
-    @Test(expected = ShortestTrackAlgorithm.Exception.class)
-    public void shouldThrowExceptionIfRoadsContainIdenticalCities() {
-        City sillingy = new City("Sillingy");
-        City annecy = new City("Annecy");
+    @Test(expected = ShortestTrackAlgorithmException::class)
+    fun shouldThrowExceptionIfRoadsContainIdenticalCities() {
+        val sillingy = City("Sillingy")
+        val annecy = City("Annecy")
 
-        Road sillingyToAnnecy1 = new Road(sillingy, annecy, new Length(1, Metric.minute));
-        Road sillingyToAnnecy2 = new Road(sillingy, annecy, new Length(3, Metric.minute));
+        val sillingyToAnnecy1 = Road(sillingy, annecy, Length(1, Metric.minute))
+        val sillingyToAnnecy2 = Road(sillingy, annecy, Length(3, Metric.minute))
 
-        List<Road> roads = Arrays.asList(sillingyToAnnecy1, sillingyToAnnecy2);
+        val roads = Arrays.asList(sillingyToAnnecy1, sillingyToAnnecy2)
 
         // When
-        List<Road> shortestTrack = shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads);
+        val shortestTrack = shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads)
 
         // Then
         // Booooum

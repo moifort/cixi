@@ -1,13 +1,7 @@
-package domain;
+package domain
 
-import java.util.List;
-
-public interface ShortestTrackAlgorithm {
-    List<Road> shortestTrack(City from, City to, List<Road> roads);
-
-    class Exception extends RuntimeException {
-        public Exception(String message) {
-            super(message);
-        }
-    }
+interface ShortestTrackAlgorithm {
+    fun shortestTrack(from: City, to: City, roads: List<Road>): List<Road>
 }
+
+class ShortestTrackAlgorithmException(message: String) : RuntimeException(message)

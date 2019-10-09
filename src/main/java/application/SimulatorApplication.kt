@@ -1,50 +1,47 @@
-package application;
+package application
 
-import application.print.Printer;
-import application.print.SystemOutPrinter;
-import domain.*;
-import infra.algorithm.DijkstraAlgorithm;
+import application.print.*
+import domain.*
+import domain.Map
+import infra.algorithm.DijkstraAlgorithm
 
-import java.util.List;
+class SimulatorApplication(print: Printable = SystemOutPrinter(),
+                           clockable: Clockable = SystemClock()) {
+    private val printer = Printer(print, clockable)
 
-public class SimulatorApplication {
-    private Printer printer = new Printer(new SystemOutPrinter());
+    fun run() {
+        printer.title("City")
+        val sillingy = City("Sillingy")
+        val annecy = City("Annecy")
+        val epagny = City("Epagny")
+        val metzTessy = City("Metz-Tessy")
+        val seynod = City("Seynod")
+        val cities = listOf(sillingy, annecy, epagny, metzTessy, seynod)
+        cities.forEach { printer.result(it) }
 
-    public void run() {
-        printer.title("City");
-        City sillingy = new City("Sillingy");
-        City annecy = new City("Annecy");
-        City epagny = new City("Epagny");
-        City metzTessy = new City("Metz-Tessy");
-        City seynod = new City("Seynod");
-        List<City> cities = List.of(sillingy, annecy, epagny, metzTessy, seynod);
-        cities.stream().forEach(printer::result);
-
-        printer.title("Road");
-        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1, Metric.minute));
-        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3, Metric.minute));
-        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12, Metric.minute));
-        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4, Metric.minute));
-        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11, Metric.minute));
-        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
-        Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
-        List<Road> roads = List.of(sillingyToEpany,
+        printer.title("Road")
+        val sillingyToEpany = Road(sillingy, epagny, Length(1, Metric.minute))
+        val epagnyToMetzTessy = Road(epagny, metzTessy, Length(3, Metric.minute))
+        val metzTessyToAnnecy = Road(metzTessy, annecy, Length(12, Metric.minute))
+        val metzTessyToSeynod = Road(metzTessy, seynod, Length(4, Metric.minute))
+        val sillingyToSeynod = Road(sillingy, seynod, Length(11, Metric.minute))
+        val sillingyToAnnecy = Road(sillingy, annecy, Length(19, Metric.minute))
+        val annecyToSeynod = Road(annecy, seynod, Length(9, Metric.minute))
+        val roads = listOf(sillingyToEpany,
                 epagnyToMetzTessy,
                 metzTessyToAnnecy,
                 metzTessyToSeynod,
                 sillingyToSeynod,
                 sillingyToAnnecy,
-                annecyToSeynod);
-        roads.stream().forEach(printer::result);
+                annecyToSeynod)
+        roads.forEach { printer.result(it) }
 
-        printer.title("Map");
-        Map map = new Map(roads, new DijkstraAlgorithm());
-        printer.map(cities, roads);
+        printer.title("Map")
+        val map = Map(roads, DijkstraAlgorithm())
+        printer.map(cities, roads)
 
-        printer.title("Route");
-        City from = sillingy;
-        City to = annecy;
-        List<Road> route = map.shortestTrack(from, to);
-        printer.route(from, to, route);
+        printer.title("Route")
+        val route = map.shortestTrack(sillingy, annecy)
+        printer.route(sillingy, annecy, route)
     }
 }

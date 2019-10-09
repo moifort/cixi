@@ -1,16 +1,10 @@
-package application.print;
+package application.print
 
-import org.beryx.textio.TextTerminal;
+import org.beryx.textio.TextTerminal
 
-public class TerminalPrinter implements Printable {
-    private TextTerminal terminal;
+class TerminalPrinter(private val terminal: TextTerminal<*>) : Printable {
 
-    public TerminalPrinter(TextTerminal terminal) {
-        this.terminal = terminal;
-    }
-
-    @Override
-    public void println(String text) {
-        terminal.println(text);
+    override fun println(text: String) {
+        terminal.println(text)
     }
 }

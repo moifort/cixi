@@ -1,5 +1,5 @@
-package application.print;
+package application.print
 
-public interface Printable {
-    void println(String text);
+interface Printable {
+    fun println(text: String)
 }

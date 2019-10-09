@@ -1,24 +1,8 @@
-package domain;
+package domain
 
-public class Length {
-    private int value;
-    private Metric metric;
+data class Length(val value: Int, val metric: Metric)
 
-    public Length(int value, Metric metric) {
-        this.value = value;
-        this.metric = metric;
-    }
-
-    public int value() {
-        return value;
-    }
-
-    public Metric metric() {
-        return metric;
-    }
-
-    @Override
-    public String toString() {
-        return value + " " + metric;
-    }
+enum class Metric {
+    minute,
+    meter
 }

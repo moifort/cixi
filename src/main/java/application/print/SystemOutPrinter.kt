@@ -1,8 +1,7 @@
-package application.print;
+package application.print
 
-public class SystemOutPrinter implements Printable {
-    @Override
-    public void println(String text) {
-        System.out.println(text);
+class SystemOutPrinter : Printable {
+    override fun println(text: String) {
+        kotlin.io.println(text)
     }
 }
