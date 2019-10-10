@@ -23,14 +23,15 @@ public class MapTest {
         City epagny = new City("Epagny");
         City metzTessy = new City("Metz-Tessy");
         City seynod = new City("Seynod");
+        List<City> cities = List.of(sillingy, annecy, epagny, metzTessy, seynod);
 
-        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1, Metric.minute));
-        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3, Metric.minute));
-        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12, Metric.minute));
-        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4, Metric.minute));
-        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11, Metric.minute));
-        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
-        Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
+        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1));
+        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3));
+        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12));
+        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4));
+        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11));
+        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19));
+        Road annecyToSeynod = new Road(annecy, seynod, new Length(9));
         List<Road> roads = List.of(
                 sillingyToEpany,
                 epagnyToMetzTessy,
@@ -43,7 +44,7 @@ public class MapTest {
         when(shortestTrackAlgorithm.shortestTrack(sillingy, annecy, roads))
                 .thenReturn(List.of(sillingyToEpany, epagnyToMetzTessy, metzTessyToAnnecy));
 
-        Map map = new Map(roads, shortestTrackAlgorithm);
+        Map map = new Map(cities, roads, shortestTrackAlgorithm);
 
         // When
         List<Road> shortestTrack = map.shortestTrack(sillingy, annecy);

@@ -17,7 +17,7 @@ import java.util.List;
  * This algorithm canNOT manage two roads starting and ending with the same cities and will throw a RuntimeException
  */
 
-public class DijkstraAlgorithm implements ShortestTrackAlgorithm {
+public class HipsterDijkstraAdaptor implements ShortestTrackAlgorithm {
 
     @Override
     public List<Road> shortestTrack(City from, City to, List<Road> roads) {
@@ -36,11 +36,16 @@ public class DijkstraAlgorithm implements ShortestTrackAlgorithm {
         return Algorithm.recoverActionPath(shortestTrack.getGoalNode());
     }
 
+    @Override
+    public String getName() {
+        return "Djikstra by Hipster (https://github.com/citiususc/hipster)";
+    }
+
     private boolean isRoadWithIdenticalCities(List<Road> roads) {
         for (Road roadToCheck : roads) {
             boolean hasDuplicate = roads
                     .stream()
-                    .anyMatch(road -> !road.id().equals(roadToCheck.id())
+                    .anyMatch(road -> !road.equals(roadToCheck)
                             && road.from().equals(roadToCheck.from())
                             && road.to().equals(roadToCheck.to()));
             if (hasDuplicate) return true;

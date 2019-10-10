@@ -1,23 +1,24 @@
 package application;
 
-import application.clock.Clock;
-import application.print.Printable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import util.MockClock;
+import util.MockPrinter;
 
 public class SimulatorApplicationTest {
 
     @Test
-    public void ShouldValidTheConsoleOutput() {
+    public void ShouldValidSimulationOutput() {
         // Given
-        TestPrinter printer = new TestPrinter();
-        SimulatorApplication app = new SimulatorApplication(printer, new TestClock());
+        MockPrinter printer = new MockPrinter();
+        SimulatorApplication app = new SimulatorApplication(printer, new MockClock("17:53"));
 
         // When
         app.run();
 
         // Then
-        Assertions.assertThat(printer.out.toString()).isEqualTo("\n\n" +
+        Assertions.assertThat(printer.getOut().toString()).isEqualTo("\n" +
+                "\n" +
                 "╔══════════════════════════════════════════════════════════╗\n" +
                 "║                           City                           ║\n" +
                 "╚══════════════════════════════════════════════════════════╝\n" +
@@ -43,7 +44,9 @@ public class SimulatorApplicationTest {
                 "╔══════════════════════════════════════════════════════════╗\n" +
                 "║                           Map                            ║\n" +
                 "╚══════════════════════════════════════════════════════════╝\n" +
-                "┌──────────────────┬───────────────────────────────────────┐\n" +
+                "┌──────────────────────────────────────────────────────────┐\n" +
+                "│          Algorithm: Home made Djikstra by Tibo           │\n" +
+                "├──────────────────┬───────────────────────────────────────┤\n" +
                 "│      Cities      │                 Roads                 │\n" +
                 "├──────────────────┼───────────────────────────────────────┤\n" +
                 "│Sillingy          │Sillingy ══[1min]=> Epagny             │\n" +
@@ -69,22 +72,4 @@ public class SimulatorApplicationTest {
                 "║3. Metz-Tessy ══[12min]=> Annecy                          ║\n" +
                 "╚══════════════════════════════════════════════════════════╝\n");
     }
-
-    class TestPrinter implements Printable {
-        StringBuilder out = new StringBuilder();
-
-        @Override
-        public void println(String text) {
-            out.append(text + "\n");
-        }
-    }
-
-    class TestClock implements Clock {
-
-        @Override
-        public String nowHHmm(int minutesAdded) {
-            return "17:53";
-        }
-    }
-
 }
