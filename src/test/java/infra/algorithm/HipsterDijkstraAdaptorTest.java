@@ -1,14 +1,17 @@
 package infra.algorithm;
 
-import domain.*;
+import domain.City;
+import domain.Length;
+import domain.Road;
+import domain.ShortestTrackAlgorithm;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class DijkstraTest {
-    private ShortestTrackAlgorithm shortestTrackAlgorithm = new DijkstraAlgorithm();
+public class HipsterDijkstraAdaptorTest {
+    private ShortestTrackAlgorithm shortestTrackAlgorithm = new HipsterDijkstraAdaptor();
 
     @Test
     public void shouldDisplayTheShortestPath() {
@@ -17,9 +20,9 @@ public class DijkstraTest {
         City annecy = new City("Annecy");
         City epagny = new City("Epagny");
 
-        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1, Metric.minute));
-        Road epagnyToAnnecy = new Road(epagny, annecy, new Length(2, Metric.minute));
-        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(4, Metric.minute));
+        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1));
+        Road epagnyToAnnecy = new Road(epagny, annecy, new Length(2));
+        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(4));
 
         List<Road> roads = Arrays.asList(sillingyToEpany, epagnyToAnnecy, sillingyToAnnecy);
 
@@ -35,8 +38,8 @@ public class DijkstraTest {
         City sillingy = new City("Sillingy");
         City annecy = new City("Annecy");
 
-        Road sillingyToAnnecy1 = new Road(sillingy, annecy, new Length(1, Metric.minute));
-        Road sillingyToAnnecy2 = new Road(sillingy, annecy, new Length(3, Metric.minute));
+        Road sillingyToAnnecy1 = new Road(sillingy, annecy, new Length(1));
+        Road sillingyToAnnecy2 = new Road(sillingy, annecy, new Length(3));
 
         List<Road> roads = Arrays.asList(sillingyToAnnecy1, sillingyToAnnecy2);
 

@@ -5,8 +5,11 @@ import application.clock.SystemClock;
 import application.print.Printable;
 import application.print.Printer;
 import application.print.SystemOutPrinter;
-import domain.*;
-import infra.algorithm.DijkstraAlgorithm;
+import domain.City;
+import domain.Length;
+import domain.Map;
+import domain.Road;
+import infra.algorithm.homemade.MyDijkstraAdaptor;
 
 import java.util.List;
 
@@ -32,13 +35,13 @@ public class SimulatorApplication {
         cities.stream().forEach(printer::result);
 
         printer.title("Road");
-        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1, Metric.minute));
-        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3, Metric.minute));
-        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12, Metric.minute));
-        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4, Metric.minute));
-        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11, Metric.minute));
-        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19, Metric.minute));
-        Road annecyToSeynod = new Road(annecy, seynod, new Length(9, Metric.minute));
+        Road sillingyToEpany = new Road(sillingy, epagny, new Length(1));
+        Road epagnyToMetzTessy = new Road(epagny, metzTessy, new Length(3));
+        Road metzTessyToAnnecy = new Road(metzTessy, annecy, new Length(12));
+        Road metzTessyToSeynod = new Road(metzTessy, seynod, new Length(4));
+        Road sillingyToSeynod = new Road(sillingy, seynod, new Length(11));
+        Road sillingyToAnnecy = new Road(sillingy, annecy, new Length(19));
+        Road annecyToSeynod = new Road(annecy, seynod, new Length(9));
         List<Road> roads = List.of(sillingyToEpany,
                 epagnyToMetzTessy,
                 metzTessyToAnnecy,
@@ -49,8 +52,8 @@ public class SimulatorApplication {
         roads.stream().forEach(printer::result);
 
         printer.title("Map");
-        Map map = new Map(roads, new DijkstraAlgorithm());
-        printer.map(cities, roads);
+        Map map = new Map(cities, roads, new MyDijkstraAdaptor());
+        printer.map(map);
 
         printer.title("Route");
         City from = sillingy;

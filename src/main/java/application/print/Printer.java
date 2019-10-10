@@ -8,6 +8,7 @@ import de.vandermeer.asciithemes.u8.U8_Grids;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import domain.City;
 import domain.Length;
+import domain.Map;
 import domain.Road;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class Printer {
         this.printer = printer;
     }
 
+    public void println(String text) {
+        printer.println(text);
+    }
+
     public void title(String title) {
         AsciiTable at = new AsciiTable();
         at.addRule();
@@ -33,13 +38,15 @@ public class Printer {
         printer.println("\n\n" + at.render());
     }
 
-    public void map(List<City> cities, List<Road> roads) {
+    public void map(Map map) {
         AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow(null, "Algorithm: " + map.getShortestTrackAlgorithm().getName()).setTextAlignment(TextAlignment.CENTER);
         at.addRule();
         at.addRow("Cities", "Roads").setTextAlignment(TextAlignment.CENTER);
         at.addRule();
-        String citiesList = cities.stream().map(City::name).collect(Collectors.joining("<br>"));
-        String roadList = roads.stream().map(this::toString).collect(Collectors.joining("<br>"));
+        String citiesList = map.cities().stream().map(City::name).collect(Collectors.joining("<br>"));
+        String roadList = map.roads().stream().map(this::toString).collect(Collectors.joining("<br>"));
         at.addRow(citiesList, roadList).setTextAlignment(TextAlignment.LEFT);
         at.addRule();
         at.getRenderer().setCWC(new CWC_FixedWidth().add(18).add(39));

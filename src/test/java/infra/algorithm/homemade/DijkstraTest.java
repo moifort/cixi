@@ -3,6 +3,7 @@ package infra.algorithm.homemade;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -24,14 +25,14 @@ public class DijkstraTest {
                 List.of(edgeAB, edgeBC, edgeAC));
 
         // When
-        List<Vertex> route = dijkstra.shortestTrack(vertexA, vertexC);
+        Collection<Edge> route = dijkstra.shortestTrack(vertexA, vertexC);
 
         // Then
-        Assertions.assertThat(route).containsExactly(vertexA, vertexB, vertexC);
+        Assertions.assertThat(route).containsExactly(edgeAB, edgeBC);
     }
 
     @Test
-    public void shouldFindTheShortestTrackWithSameStartEndCity() {
+    public void shouldReturnEmptyRouteWhenTrackWithSameStartEndCity() {
         // Given
         Vertex vertexA = new Vertex("A");
         Vertex vertexB = new Vertex("B");
@@ -46,10 +47,10 @@ public class DijkstraTest {
                 List.of(edgeAB, edgeBC, edgeAC));
 
         // When
-        List<Vertex> route = dijkstra.shortestTrack(vertexA, vertexA);
+        Collection<Edge> route = dijkstra.shortestTrack(vertexA, vertexA);
 
         // Then
-        Assertions.assertThat(route).containsExactly(vertexA);
+        Assertions.assertThat(route).isEmpty();
     }
 
     @Test
@@ -68,14 +69,14 @@ public class DijkstraTest {
                 List.of(edgeAB1, edgeAB2, edgeAC));
 
         // When
-        List<Vertex> route = dijkstra.shortestTrack(vertexA, vertexC);
+        Collection<Edge> route = dijkstra.shortestTrack(vertexA, vertexC);
 
         // Then
-        Assertions.assertThat(route).containsExactly(vertexA, vertexC);
+        Assertions.assertThat(route).containsExactly(edgeAC);
     }
 
     @Test
-    public void shouldFindTheShortestTrackWithIsolatedVortex() {
+    public void shouldReturnEmptyRouteWhenTrackWithIsolatedVortex() {
         // Given
         Vertex vertexA = new Vertex("A");
         Vertex vertexB = new Vertex("B");
@@ -88,7 +89,27 @@ public class DijkstraTest {
                 List.of(edgeAB));
 
         // When
-        List<Vertex> route = dijkstra.shortestTrack(vertexA, vertexC);
+        Collection<Edge> route = dijkstra.shortestTrack(vertexA, vertexC);
+
+        // Then
+        Assertions.assertThat(route).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnEmptyRouteWhenVertexNotPresentInEdges() {
+        // Given
+        Vertex vertexA = new Vertex("A");
+        Vertex vertexB = new Vertex("B");
+        Vertex vertexC = new Vertex("C");
+
+        Edge edgeAB = new Edge("AB", vertexA, vertexB, 1);
+
+        Dijkstra dijkstra = new Dijkstra(
+                List.of(vertexA, vertexB),
+                List.of(edgeAB));
+
+        // When
+        Collection<Edge> route = dijkstra.shortestTrack(vertexA, vertexC);
 
         // Then
         Assertions.assertThat(route).isEmpty();
