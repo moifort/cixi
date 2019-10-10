@@ -41,13 +41,7 @@ public class Dijkstra {
 
             Set<Vertex> neighbors = vertexWithNeighbors.getOrDefault(target, Collections.emptySet());
             for (Vertex neighbor : neighbors) {
-                int targetDistance = distances.getOrDefault(target, Integer.MAX_VALUE);
-                int length = edges.stream()
-                        .filter(edge -> edge.from().equals(target) && edge.to().equals(neighbor))
-                        .mapToInt(Edge::length)
-                        .min()
-                        .orElse(Integer.MAX_VALUE);
-                int distanceFromRoot = (targetDistance == Integer.MAX_VALUE || length == Integer.MAX_VALUE) ? Integer.MAX_VALUE : targetDistance + length;
+                int distanceFromRoot = getDistanceFromRoot(distances, target, neighbor);
                 int neighborDistance = distances.getOrDefault(neighbor, Integer.MAX_VALUE);
                 if (distanceFromRoot < neighborDistance) {
                     distances.put(neighbor, distanceFromRoot);
@@ -57,6 +51,16 @@ public class Dijkstra {
             }
         }
         return List.of();
+    }
+
+    private int getDistanceFromRoot(Map<Vertex, Integer> distances, Vertex target, Vertex neighbor) {
+        int targetDistance = distances.getOrDefault(target, Integer.MAX_VALUE);
+        int length = edges.stream()
+                .filter(edge -> edge.from().equals(target) && edge.to().equals(neighbor))
+                .mapToInt(Edge::length)
+                .min()
+                .orElse(Integer.MAX_VALUE);
+        return (targetDistance == Integer.MAX_VALUE || length == Integer.MAX_VALUE) ? Integer.MAX_VALUE : targetDistance + length;
     }
 
     private List<Vertex> getPath(Vertex target, Map<Vertex, Vertex> predecessors) {
